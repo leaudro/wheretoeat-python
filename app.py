@@ -51,10 +51,13 @@ def place_day():
     count = 0
     chosen_place = None
     for place in places.each():
-        length_users = len(place.val()["votes_users"])
-        if length_users > count:
-            count = length_users
-            chosen_place = place.val()
+        try:
+            length_users = len(place.val()["votes_users"])
+            if length_users > count:
+                count = length_users
+                chosen_place = place.val()
+        except KeyError as e:
+            pass
     return jsonify(chosen_place)
 
 if __name__ == '__main__':
